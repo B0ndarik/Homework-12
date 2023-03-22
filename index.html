@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homework#12</title>
+  </head>
+  <body>
+    <script>
+      let arr = [
+        34, 54, 65, 71, 32, 45, 65, 23, 92, 51, 31, 42, 84, 38, 39, 32, 62, 35,
+        25, 63, 45, 55, 69, 48, 11, 30, 33, 66, 95, 63,
+      ];
+      //Задача 1. Дано масив 30 випадкових цілих чисел. Підрахувати скільки було обмінів під час сортування бульбашкою
+      let sorted;
+      let sortCount = 0;
+      do {
+        sorted = false;
+        for (let i = 0; i < arr.length; i++) {
+          if (arr[i - 1] > arr[i]) {
+            [arr[i], arr[i - 1]] = [arr[i - 1], arr[i]];
+            sorted = true;
+            sortCount++;
+          }
+        }
+      } while (sorted);
+
+      document.write(`Sorted ${sortCount} times<br>`);
+
+      //Задача 2. Дано масив 30 випадкових цілих чисел. Підрахувати скільки було обмінів під час сортування змішуванням.
+      let arr1 = [
+        34, 54, 65, 71, 32, 45, 65, 23, 92, 51, 31, 42, 84, 38, 39, 32, 62, 35,
+        25, 63, 45, 55, 69, 48, 11, 30, 33, 66, 95, 63,
+      ];
+
+      let leftIndex = 0;
+      let rightIndex = arr1.length - 1;
+      let sortCountMixing = 0;
+
+      while (leftIndex < rightIndex) {
+        for (let i = leftIndex; i < rightIndex; i++) {
+          if (arr1[i] > arr1[i + 1]) {
+            [arr1[i], arr1[i + 1]] = [arr1[i + 1], arr1[i]];
+            sortCountMixing++;
+          }
+        }
+        rightIndex--;
+        for (let i = rightIndex; i > leftIndex; i--) {
+          if (arr1[i] < arr1[i - 1]) {
+            [arr1[i], arr1[i - 1]] = [arr1[i - 1], arr1[i]];
+            sortCountMixing++;
+          }
+        }
+        leftIndex++;
+      }
+
+      document.write(`Using mixing method sorted ${sortCountMixing} times<br>`);
+
+      //Задача 3. Дано масив 30 випадкових цілих чисел. Підрахувати скільки було обмінів під час сортування включеннями.
+
+      let arr2 = [
+        34, 54, 65, 71, 32, 45, 65, 23, 92, 51, 31, 42, 84, 38, 39, 32, 62, 35,
+        25, 63, 45, 55, 69, 48, 11, 30, 33, 66, 95, 63,
+      ];
+
+      let sortCountInsertion = 0;
+
+      let key, i;
+      for (let k = 1; k < arr2.length; k++) {
+        key = arr2[k];
+        i = k - 1;
+        while (i >= 0 && arr2[i] > key) {
+          arr2[i + 1] = arr2[i];
+          i--;
+          sortCountInsertion++;
+        }
+        arr2[i + 1] = key;
+      }
+
+      document.write(
+        `Using insertion method sorted ${sortCountMixing} times<br>`
+      );
+
+      //Задача 4. Для розглянутих методів сортування спробувати вивести етапи сортування шляхом виведення відповідних таблиць за зразком.
+
+      //Метод бульбашки
+      arr4 = [5, 4, 3, 2, 1];
+
+      let changed;
+      document.write(`<table border 1><th>Bubble</th>`);
+      do {
+        changed = false;
+        for (let i = 0; i < arr4.length; i++) {
+          if (arr4[i - 1] > arr4[i]) {
+            [arr4[i], arr4[i - 1]] = [arr4[i - 1], arr4[i]];
+            changed = true;
+            document.write(`<tr><td>${arr4}</td></tr>`);
+          }
+        }
+      } while (changed);
+      document.write(`</table>`);
+
+      // Сортування змішуванням
+
+      arr5 = [5, 4, 3, 2, 1];
+
+      document.write(`<table border 1><th>Mixing</th>`);
+      let leftI = 0;
+      let rightI = arr5.length - 1;
+
+      while (leftI < rightI) {
+        for (let i = leftI; i < rightI; i++) {
+          if (arr5[i] > arr5[i + 1]) {
+            [arr5[i], arr5[i + 1]] = [arr5[i + 1], arr5[i]];
+
+            document.write(`<tr><td>${arr5}</td></tr>`);
+          }
+        }
+        rightI--;
+        for (let i = rightI; i > leftI; i--) {
+          if (arr5[i] < arr5[i - 1]) {
+            [arr5[i], arr5[i - 1]] = [arr5[i - 1], arr5[i]];
+
+            document.write(`<tr><td>${arr5}</td></tr>`);
+          }
+        }
+        leftI++;
+      }
+      document.write(`</table>`);
+
+      // Сортування включенням
+
+      arr6 = [5, 4, 3, 2, 1];
+      document.write(`<table border 1><th>Insertion</th>`);
+      let curEl, y;
+      for (let j = 1; j < arr6.length; j++) {
+        curEl = arr6[j];
+        y = j - 1;
+        while (y >= 0 && arr6[y] > curEl) {
+          arr6[y + 1] = arr6[y];
+          document.write(`<tr><td>${arr6}</td></tr>`);
+          y--;
+        }
+        arr6[y + 1] = curEl;
+        document.write(`<tr><td>${arr6}</td></tr>`);
+      }
+      document.write(`</table>`);
+      console.log(arr6);
+
+      //Задача 5. Дано масив імен. Застосовуючи відповідне сортування та бінарний пошук визначити, чи є у масиві ім’я «Olga» і під яким індексом.
+
+      const names = ["Ivan", "Petro", "Irina", "Olga", "Viktor", "Artem"];
+
+      let currentName, nameIndex;
+      for (let i = 1; i < names.length; i++) {
+        currentName = names[i];
+        nameIndex = i - 1;
+        while (nameIndex >= 0 && names[nameIndex] > currentName) {
+          names[nameIndex + 1] = names[nameIndex];
+          nameIndex--;
+        }
+        names[nameIndex + 1] = currentName;
+      }
+
+      function binarySearchAndFindIndex(names, searchName) {
+        let start = 0;
+        let end = names.length - 1;
+        while (start <= end) {
+          const middle = Math.floor(end - start);
+          if (names[middle] === searchName) return [true, middle];
+          if (names[middle] > searchName) end = middle - 1;
+          if (names[middle] < searchName) start = middle + 1;
+        }
+        return [false, -1];
+      }
+
+      console.log(names);
+      const searchResult = binarySearchAndFindIndex(names, "Olga");
+
+      document.write(
+        `Is Olga on the list-  ${
+          searchResult[0]
+        }<br> The number in the list-  ${searchResult[1] + 1}<br>`
+      );
+
+      //Задача 6. Дано масив імен. Застосовуючи відповідне сортування та бінарний пошук визначити, чи є у масиві ім’я довжиною 5 символів і під яким індексом.
+
+      const lastNames = [
+        "Honcharenko",
+        "Ivanov",
+        "Semenuk",
+        "Shevchenko",
+        "Franko",
+        "Bondarenko",
+        "Popov",
+      ];
+
+      let currentLastName, lastNameIndex;
+      for (let i = 1; i < lastNames.length; i++) {
+        currentLastName = lastNames[i];
+        lastNameIndex = i - 1;
+        while (
+          lastNameIndex >= 0 &&
+          lastNames[lastNameIndex].length > currentLastName.length
+        ) {
+          lastNames[lastNameIndex + 1] = lastNames[lastNameIndex];
+          lastNameIndex--;
+        }
+        lastNames[lastNameIndex + 1] = currentLastName;
+      }
+
+      console.log(lastNames);
+
+      function binarySearchBylength(LastNames, searchLastNameLength) {
+        let start = 0;
+        let end = LastNames.length - 1;
+        while (start <= end) {
+          const middle = Math.floor(end - start);
+          if (lastNames[middle].length === searchLastNameLength)
+            return [true, middle];
+          if (lastNames[middle].length > searchLastNameLength) end = middle - 1;
+          if (lastNames[middle].length < searchLastNameLength)
+            start = middle + 1;
+        }
+        return [false, -1];
+      }
+
+      const lastNameResult = binarySearchBylength(lastNames, 5);
+
+      document.write(
+        `Is 5 letter lastname on the list-  ${
+          lastNameResult[0]
+        }<br> The number in the list-  ${lastNameResult[1] + 1}`
+      );
+    </script>
+  </body>
+</html>
